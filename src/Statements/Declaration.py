@@ -1,5 +1,6 @@
 import Stack
 import Statement
+import re
 
 def declaration(statement):
     rmatch = re.match(r'([^;]+);(.*)', statement, re.M|re.I)

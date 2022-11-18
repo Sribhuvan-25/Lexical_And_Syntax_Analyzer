@@ -1,7 +1,7 @@
 import Expression
 import Tokens
 
-def BooleanEquation(equation):
+def booleanEquation(equation):
 
     operators = [Tokens.GT, Tokens.LT, Tokens.GTE, Tokens.LTE, Tokens.EQ, Tokens.NE]
 
@@ -14,27 +14,27 @@ def BooleanEquation(equation):
         expression1, expression2 = equation.split("{}".format(operators[i]))
 
 
-        value1 = Expression(expression1)
-        value2 = Expression(expression2)
+        value1 = Expression.expression(expression1)
+        value2 = Expression.expression(expression2)
 
         token = operators[i]
 
-        if token == LT:
+        if token == operators[0]:
             return value1 < value2
         
-        if token == LTE:
+        if token == operators[1]:
             return value1 <= value2
         
-        if token == GT:
+        if token == operators[2]:
             return value1 > value2
         
-        if token == GTE:
+        if token == operators[3]:
             return value1 >= value2
         
-        if token == EQ:
+        if token == operators[4]:
             return value1 == value2
         
-        if token == NE:
+        if token == operators[5]:
             return value1 != value2
     
     raise Exception("Invalid boolean expression")

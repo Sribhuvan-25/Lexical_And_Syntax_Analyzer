@@ -4,16 +4,19 @@ from typing import Union
 import re
 
 class BinaryNode:
-    left:BinaryNode
-    right: BinaryNode
+
+    # left:BinaryNode
+    # right: BinaryNode
     val: Union[str,int]
 
     def __init__(self, val = "") -> None:
+        self.right = None
+        self.left = None
         self.val = val
 
 
 def tree(expression, node: BinaryNode):
-    if isnumeric(expression):
+    if expression.isnumeric():
         node.val = int(expression)
         return;
     
@@ -39,26 +42,26 @@ def tree(expression, node: BinaryNode):
     
     if index_plus != -1:
         node.val = Tokens.ADD
-        tree(statement.substring(0,index_plus), node.left)
-        tree(statement.substring(index_plus+2), node.right)
+        tree(expression.substring(0,index_plus), node.left)
+        tree(expression.substring(index_plus+2), node.right)
         return 
     
     if index_minus != -1:
         node.val = Tokens.SUB
-        tree(statement.substring(0,index_minus), node.left)
-        tree(statement.substring(index_minus + 2), node.right)
+        tree(expression.substring(0,index_minus), node.left)
+        tree(expression.substring(index_minus + 2), node.right)
         return 
     
     if index_mul != -1:
         node.val = Tokens.MUL
-        tree(statement.substring(0,index_mul), node.left)
-        tree(statement.substring(index_mul+2), node.right)
+        tree(expression.substring(0,index_mul), node.left)
+        tree(expression.substring(index_mul+2), node.right)
         return 
     
     if index_div != -1:
         node.val = Tokens.DIV
-        tree(statement.substring(0,index_div), node.left)
-        tree(statement.substring(index_div + 2), node.right)
+        tree(expression.substring(0,index_div), node.left)
+        tree(expression.substring(index_div + 2), node.right)
         return 
     
 
@@ -69,20 +72,20 @@ def solveTree(node: BinaryNode):
     if type(node.val) is int:
         return node.val
     
-    if node.val == Token.ADD:
+    if node.val == Tokens.ADD:
         return solveTree(node.left) + solveTree(node.right)
-    elif node.val == Token.SUB:
+    elif node.val == Tokens.SUB:
         return solveTree(node.left) - solveTree(node.right)
-    elif node.val == Token.MUL:
+    elif node.val == Tokens.MUL:
         return solveTree(node.left) * solveTree(node.right)
     else:
         return solveTree(node.left) / solveTree(node.right)
 
 
-def Expression(expression):
+def expression(expression):
     expression = expression.trim()
 
-    isValidExp = re.match(r'(-?\d|[a-zA-Z])*( [+|-|*|\/] (-?\d+|[a-zA-Z]+))*', statement, re.M|re.I)
+    isValidExp = re.match(r'(-?\d|[a-zA-Z])*( [+|-|*|\/] (-?\d+|[a-zA-Z]+))*', expression, re.M|re.I)
 
     if not isValidExp or len(isValidExp[0]) != len(expression):
         raise Exception("Invaid Expression")

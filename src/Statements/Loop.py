@@ -10,9 +10,9 @@ def loop(statement):
     [ifStatement, restStatement] = InsideBrackets.insideBrackets(restStatement.trim(), Tokens.CODEBLOCKSTART, Tokens.CODEBLOCKEND)
 
     while True:
-        if BooleanEquation(booleanEquation):
-            Statement(ifStatement)
+        if BooleanEquation.booleanEquation(booleanEquation):
+            Statement.statement(ifStatement)
         else:
             break
     
-    Statement(restStatement)
+    Statement.statement(restStatement)

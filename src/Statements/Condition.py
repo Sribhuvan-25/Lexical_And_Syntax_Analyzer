@@ -7,10 +7,10 @@ from misc import BooleanEquation
 def condition(statement):
     statement = statement.replace("cond", "")
 
-    [booleanEquation, restStatement] = InsideBrackets(statement, Tokens.OPEN, Tokens.CLOSE)
-    [insideStatement, restStatement] = InsideBrackets(restStatement.trim(), Tokens.CODEBLOCKSTART, Tokens.CODEBLOCKEND)
+    [booleanStatement, restStatement] = InsideBrackets.insideBrackets(statement, Tokens.OPEN, Tokens.CLOSE)
+    [insideStatement, restStatement] = InsideBrackets.insideBrackets(restStatement.trim(), Tokens.CODEBLOCKSTART, Tokens.CODEBLOCKEND)
 
     if BooleanEquation(booleanStatement):
-        Statement(insideStatement)
+        Statement.statement(insideStatement)
 
-    Statement(restStatement)
+    Statement.statement(restStatement)
