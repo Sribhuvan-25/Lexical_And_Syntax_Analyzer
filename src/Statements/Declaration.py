@@ -15,4 +15,4 @@ def declaration(statement):
         raise Exception("{} is already present".format(variable))
 
     Stack.stack[variable] = [vType, None]
-    Statement(restStatement.trim())
+    Statement.statement(restStatement.trim())

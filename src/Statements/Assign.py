@@ -14,6 +14,6 @@ def assign(statement):
     variable = variable.trim()
     expression = expression.trim()
 
-    Stack.stack[variable][1] = Expression(expression)
+    Stack.stack[variable][1] = Expression.expression(expression)
     Statement.statement(restStatement.trim())
     

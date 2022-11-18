@@ -22,12 +22,16 @@ def statement(statement):
 
     if initalWord in  DataTypes.datatypes :
         Declaration.declaration(statement)
+
     elif initalWord == Tokens.RERUN:
         Loop.loop(statement)
+
     elif initalWord == Tokens.COND:
         Condition.condition(statement)
+
     elif Stack.stack[initalWord] == None:
         Assign.assign(statement)
+        
     else:
         raise Exception(f'{initalWord} is not defined')
     
