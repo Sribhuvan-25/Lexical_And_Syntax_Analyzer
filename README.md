@@ -1,7 +1,7 @@
 # Lexical Analyzer
 
 ### Rules
-- Code start with `start` and ends with `end`. Each lexeme is seperated by a space.
+- Code starts with `start` and ends with `end`. Each lexeme is seperated by a space.
 
 ### Statements 
 - Assignment
