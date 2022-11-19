@@ -6,7 +6,7 @@ def statement(st):
     if not st:
         return
     
-    regex_intialWord = re.findall("^[a-zA-Z]*", st)
+    regex_intialWord = re.findall("^[a-zA-Z]* ", st)
 
     if not regex_intialWord:
         raise Exception("Invalid Syntax")
@@ -22,7 +22,7 @@ def statement(st):
     elif initalWord == TList['COND']:
         condition(st)
 
-    elif stack[initalWord] == None:
+    elif initalWord in stack:
         assign(st)
 
     else:
@@ -30,11 +30,13 @@ def statement(st):
 
 
 def assign(st):
-    
-    rmatch = re.findall("([^;]+);(.*)", st)
-    assignStatement, restStatement = rmatch
+   
+    rmatch = re.findall("([^;]+);(.*)", st.strip())
 
-    variable, expr = assignStatement.split(TList.ASSIGN)
+    assignStatement = rmatch[0][0]
+    restStatement = rmatch[0][1]
+
+    variable, expr = assignStatement.split("=")
 
     variable = variable.strip()
     expr = expr.strip()
@@ -43,10 +45,10 @@ def assign(st):
     statement(restStatement.strip())
 
 def condition(st):
-    st = st.replace("cond", "")
+    st = st.replace("cond ", "", 1)
 
-    [booleanStatement, restStatement] = insideBrackets(st, TList.OPEN, TList.CLOSE)
-    [insideStatement, restStatement] = insideBrackets(restStatement.strip(), TList.CODEBLOCKSTART, TList.CODEBLOCKEND)
+    [booleanStatement, restStatement] = insideBrackets(st, TList["OPEN"], TList["CLOSE"])
+    [insideStatement, restStatement] = insideBrackets(restStatement.strip(), TList["CODEBLOCKSTART"], TList["CODEBLOCKEND"])
 
     if booleanEquation(booleanStatement):
         statement(insideStatement)
@@ -54,9 +56,8 @@ def condition(st):
     statement(restStatement)
 
 def declaration(st):
-      
     rmatch = re.split("([^;]+);(.*)", st.strip())
-   
+    
     stStatement = rmatch[1]
     restStatement = rmatch[2]
     
@@ -66,20 +67,20 @@ def declaration(st):
     vType = vType.strip()
     variable = variable.strip()
 
-    if stack[variable] != None:
+    if variable in stack:
         raise Exception("{} is already present".format(variable))
 
     stack[variable] = [vType, None]
     statement(restStatement.strip())
 
 def loop(st):
-    st = st.replace("rerun", "").strip()
+    st = st.replace("rerun ", "", 1).strip()
 
-    [booleanEquation, restStatement] = insideBrackets(statement, TList.OPEN, TList.CLOSE)
-    [ifStatement, restStatement] = insideBrackets(restStatement.strip(), TList.CODEBLOCKSTART, TList.CODEBLOCKEND)
+    [boolStatement, restStatement] = insideBrackets(st, TList["OPEN"], TList["CLOSE"])
+    [ifStatement, restStatement] = insideBrackets(restStatement.strip(), TList["CODEBLOCKSTART"], TList["CODEBLOCKEND"])
 
     while True:
-        if booleanEquation(booleanEquation):
+        if booleanEquation(boolStatement):
             statement(ifStatement)
         else:
             break

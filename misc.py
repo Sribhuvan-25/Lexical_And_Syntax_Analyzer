@@ -4,16 +4,17 @@ from Stack import stack
 
 def booleanEquation(equation):
     
-    operators = [TList.GT, TList.LT, TList.GTE, TList.LTE, TList.EQ, TList.NE]
+    
+    operators = [TList["LT"], TList["GT"], TList["GTE"], TList["LTE"], TList["EQ"], TList["NE"]]
 
     for i in range(0, len(operators)):
-        hasToken = "{}".format(operators[i]) in equation
+        
+        hasToken = f' {operators[i]} ' in equation
 
         if not hasToken:
             continue
 
-        expression1, expression2 = equation.split("{}".format(operators[i]))
-
+        expression1, expression2 = equation.split(operators[i])
 
         value1 = expression(expression1)
         value2 = expression(expression2)
@@ -37,42 +38,43 @@ def booleanEquation(equation):
         
         if token == operators[5]:
             return value1 != value2
-    
+
     raise Exception("Invalid boolean expression")
 
 datatypes = {"XS", "S", "L", "XL"}
 
 class BinaryNode:
-    
-    # left:BinaryNode
-    # right: BinaryNode
+
     val: Union[str,int]
 
     def __init__(self, val = "") -> None:
         self.right = None
         self.left = None
         self.val = val
+    
 
 
 def tree(expression, node: BinaryNode):
+    
+    expression = expression.strip()
+    if len(expression) == 0:
+        return 
     if expression.isnumeric():
         node.val = int(expression)
         return
     
-    expression = expression.strip()
-
-    index_plus = expression.index(f' {TList.ADD} ')
-    index_minus = expression.index(f' {TList.SUB} ')
-    index_mul = expression.index(f' {TList.MUL} ')
-    index_div = expression.index(f' {TList.DIV} ')
+    index_plus = expression.find(f' {TList["ADD"]} ')
+    index_minus = expression.find(f' {TList["SUB"]} ')
+    index_mul = expression.find(f' {TList["MUL"]} ')
+    index_div = expression.find(f' {TList["DIV"]} ')
 
 
     if index_plus != -1 or index_minus != -1 or index_mul != -1 or index_div != -1:
         node.left = BinaryNode("")
         node.right = BinaryNode("")
     else:
-        if stack[expression] == None or stack[expression][1] == None:
-            raise Exception("Variable does not exist")
+        if  expression not in stack or stack[expression][1] == None:
+            raise Exception(f"{expression} does not exist")
         
         if stack[expression] != None:
             node.val = stack[expression][1]
@@ -80,28 +82,29 @@ def tree(expression, node: BinaryNode):
         return 
     
     if index_plus != -1:
-        node.val = TList.ADD
-        tree(expression.substring(0,index_plus), node.left)
-        tree(expression.substring(index_plus+2), node.right)
+        node.val = TList["ADD"]
+        tree(expression[0:index_plus], node.left)
+        tree(expression[index_plus+2:], node.right)
         return 
     
     if index_minus != -1:
-        node.val = TList.SUB
-        tree(expression.substring(0,index_minus), node.left)
-        tree(expression.substring(index_minus + 2), node.right)
+        node.val = TList["SUB"]
+        tree(expression[0:index_minus], node.left)
+        tree(expression[index_minus+2:], node.right)
         return 
     
     if index_mul != -1:
-        node.val = TList.MUL
-        tree(expression.substring(0,index_mul), node.left)
-        tree(expression.substring(index_mul+2), node.right)
+        node.val = TList["MUL"]
+        tree(expression[0:index_mul], node.left)
+        tree(expression[index_mul+2:], node.right)
         return 
     
     if index_div != -1:
-        node.val = TList.DIV
-        tree(expression.substring(0,index_div), node.left)
-        tree(expression.substring(index_div + 2), node.right)
+        node.val = TList["DIV"]
+        tree(expression[0:index_div], node.left)
+        tree(expression[index_div+2:], node.right)
         return 
+    
 
 
 def solveTree(node: BinaryNode):
@@ -111,27 +114,25 @@ def solveTree(node: BinaryNode):
     if type(node.val) is int:
         return node.val
     
-    if node.val == TList.ADD:
+    if node.val == TList["ADD"]:
         return solveTree(node.left) + solveTree(node.right)
-    elif node.val == TList.SUB:
+    elif node.val == TList["SUB"]:
         return solveTree(node.left) - solveTree(node.right)
-    elif node.val == TList.MUL:
+    elif node.val == TList["MUL"]:
         return solveTree(node.left) * solveTree(node.right)
-    else:
+    elif node.val == TList["DIV"]:
+        denom = solveTree(node.right)
+        if denom == 0:
+            raise Exception("Division by Zero")
         return solveTree(node.left) / solveTree(node.right)
 
 
-def expression(expression):
-    expression = expression.strip()
-
-    isValidExp = re.findall("(-?\d|[a-zA-Z])*( [+|-|*|\/] (-?\d+|[a-zA-Z]+))*", expression)
-
-    if not isValidExp or len(isValidExp[0]) != len(expression):
-        raise Exception("Invaid Expression")
+def expression(exp:str):
+    exp = exp.strip()
     
     root = BinaryNode()
 
-    tree(expression, root)
+    tree(exp, root)
     return solveTree(root)
 
 def insideBrackets(statement, startBracket, endBracket):
@@ -147,7 +148,7 @@ def insideBrackets(statement, startBracket, endBracket):
 
         currentIndex += 1
     
-    return [statement.substring(1,currentIndex-1), statement.substring(currentIndex)]
+    return [statement[1:currentIndex-1], statement[currentIndex:]]
 
 TList = {
     'ASSIGN': "=",

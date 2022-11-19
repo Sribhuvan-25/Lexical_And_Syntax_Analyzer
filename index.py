@@ -16,7 +16,7 @@ def main():
     text = text.replace("\n", " ")
     text = re.sub('\s+', " ", text)
     text = re.findall(r'Start (.*) End', text)[0]
-    print(text)
+    
 
     # text = open("test.slang", "r") 
     # text = text.readlines()
