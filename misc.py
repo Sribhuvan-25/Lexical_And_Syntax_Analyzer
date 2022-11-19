@@ -25,13 +25,13 @@ def booleanEquation(equation):
             return value1 < value2
         
         if token == operators[1]:
-            return value1 <= value2
-        
-        if token == operators[2]:
             return value1 > value2
         
-        if token == operators[3]:
+        if token == operators[2]:
             return value1 >= value2
+        
+        if token == operators[3]:
+            return value1 <= value2
         
         if token == operators[4]:
             return value1 == value2
