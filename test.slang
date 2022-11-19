@@ -1,5 +1,5 @@
-start {
-    xs var1;
+Start 
+    XS var1;
     var1 = 1 - 3 + 2
 
     cond var1 - 2 > 15{
@@ -9,5 +9,4 @@ start {
     rerun var1 * 2 < 20 {
         var1 = var1 + 1
     }
-} end
-
+End
