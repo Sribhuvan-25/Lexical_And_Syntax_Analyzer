@@ -1,11 +1,12 @@
 import Stack
+import re
 from misc import DataTypes
 from misc import Tokens
 from Statements import Declaration
 from Statements import Assign
 from Statements import Condition
 from Statements import Loop
-import re
+
 
 def statement(statement):
     statement = statement.trim()
@@ -31,7 +32,7 @@ def statement(statement):
 
     elif Stack.stack[initalWord] == None:
         Assign.assign(statement)
-        
+
     else:
         raise Exception(f'{initalWord} is not defined')
     

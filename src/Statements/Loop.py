@@ -1,4 +1,4 @@
-import Tokens
+from misc import Tokens
 import Statement
 from misc import InsideBrackets
 from misc import BooleanEquation
