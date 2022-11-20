@@ -1,7 +1,7 @@
 # Lexical Analyzer
 
 ### Rules
-- Code starts with `start` and ends with `end`. Each lexeme is seperated by a space.
+- Code starts with `Start` and ends with `End`. Each lexeme is seperated by a space.
 
 ### Statements 
 - Assignment
@@ -18,6 +18,7 @@
 | ADD              | +         | +     |
 | SUB              | -         | -     |
 | MUL              | \*        | \*    |
+| MOD              | %         | %
 | DIV              | /         | /     |
 | OPEN             | (         | )     |
 | CLOSE            | )         | )     |
@@ -45,7 +46,7 @@
 ## Keywords
 | Token Code | Regex         |
 | ---------- | ------------- |
-| VAR        | [a-zA-Z]{6,8} |
+| VAR        | [a-zA-Z_]{6,8}|
 | COND       | cond          |
 | RERUN      | rerun         |
 | START      | start         |
@@ -78,7 +79,7 @@
 
 <datatype> --> (XS|S|L|XL)
 <var> -->  [a-zA-Z_]{6,8}                       // Variable Naming restriction
-<expression> --> <term> { (`*`|`\` ) <term> }
+<expression> --> <term> { (`*`|`\`|`%` ) <term> }
 <term> --> <term> { (`+`|`-`) <term> }
 <factor> --> [0-9]+ | <var>  | `(` <expression> `)`
 <bool> --> <expression> (`<=`|`>=` | `<` | `>`) <expression>
@@ -95,4 +96,83 @@ F -> +F             Unary Plus
 F ->( E )           Factor can be an Expression in parentheses
 F -> c              Factor can be a constant
 ```
+## (C) Is it LL Grammar ?
+The code works on the principle of LR grammar and wouldn't have pairwise disjointness. It fillows push down or top down automata
+
+## (D) Is the Grammar Ambiguous ?
+The LR table would have highlighted the ambiguous parts in red which is in the action block. The following image shows that there isn't any ambiguity.
+
+## (G) Test Files
+### Failing Test cases
+```txt
+Start
+    XL var1A;
+    var1A = 5 - (2 *5);
+
+    cond ( varA < = 20 {
+        var1 = 10;
+    }
+
+    XL varTwo;
+    varTwo = var1A + 5;
+End
+```
+#### Errors in the code:
+- var1A is a lexical error since this language can't have variable names containing numbers.
+- Syntax error with *5 since there should be a space between and operands and operators.
+- 
+
+### Working test cases
+```txt
+Start
+
+  S varOne;
+  varOne = 1;
+
+  XL varTwo;
+  varTwo = 1 + 1 + (2 + (100 * 2)) * varOne;
+
+  cond (varOne == varTwo) {
+    cond (varOne <= varTwo) {
+      varOne = varTwo * 2;
+    }
+  }
+
+  XS varThree;
+  varThree = 0;
+
+  rerun (varThree <= 2) {
+    varThree = varThree + 4;
+
+    cond (varThree == 3) {
+      varThree = varThree * 2;
+    }
+  }
+
+End
+```
+```txt
+Start
+
+    XL varOne;
+    varOne = 2 * 4 - 1;
+
+    XS varTwo;
+    varTwo = 4;
+
+    L var_a;
+
+    cond (varTwo < varOne){
+        var_a = 1
+    }
+End
+```
+
+## (H) LR(1) Grammar and parse tree
+
+
+
+
+
+
 

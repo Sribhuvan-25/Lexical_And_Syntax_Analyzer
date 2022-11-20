@@ -95,6 +95,7 @@ def tree(exp, node: BinaryNode):
     index_minus = None;
     index_mul = None;
     index_div = None;
+    index_mod = None;
 
     i = 0 
     while i < len(temp):
@@ -108,6 +109,8 @@ def tree(exp, node: BinaryNode):
             index_mul = i
         elif temp[i-1:i+2] == f' {TList["DIV"]} ':
             index_div = i
+        elif temp[i-1:i+2] == f' {TList["MOD"]} ':
+            index_mod = i
         i = i + 1
 
     
@@ -146,6 +149,12 @@ def tree(exp, node: BinaryNode):
         tree(exp[index_div+2:], node.right)
         return 
     
+    if index_mod:
+        node.val = TList["MOD"]
+        tree(exp[0:index_mod], node.left)
+        tree(exp[index_mod+2:], node.right)
+        return 
+    
     
 
 
@@ -166,7 +175,11 @@ def solveTree(node: BinaryNode):
         denom = solveTree(node.right)
         if denom == 0:
             raise Exception("Division by Zero")
-        return int(solveTree(node.left) / solveTree(node.right))
+        return int(solveTree(node.left) / denom)
+    elif node.val == TList["MOD"]:
+        if denom == 0:
+            raise Exception("Division by Zero")
+        return int(solveTree(node.left) % denom)
 
 
 def expression(exp:str):
@@ -203,7 +216,6 @@ TList = {
     'MUL': "*",
     'DIV': "/",
     'MOD': "%",
-    'FLRDIV': "$",
     'GT': ">",
     'LT': "<",
     'GTE': ">=",

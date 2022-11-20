@@ -1,3 +1,0 @@
-rerun var * 2 < 20 {
-        var = var + 1;
-    }
