@@ -67,7 +67,6 @@ def indexPairBracket(st, startBracket, endBracket, startIndex):
     return currentIndex
 
 def inParenthesis(exp):
-    print(exp)
     if exp[0] != TList["OPEN"]:
         return False
     val = indexPairBracket(exp, TList["OPEN"], TList["CLOSE"], 0)
@@ -79,7 +78,6 @@ def tree(exp, node: BinaryNode):
 
     if inParenthesis(exp):
         exp = exp[1:len(exp)-1]
-        print(exp)
 
     if not exp:
         raise Exception("Invalid Expression")
@@ -112,17 +110,11 @@ def tree(exp, node: BinaryNode):
             index_div = i
         i = i + 1
 
-    print(index_minus)
     
     if index_plus or index_minus or index_mul or index_div:
         node.left = BinaryNode("")
         node.right = BinaryNode("")
     else:
-        print("----------------")
-        print("Exp:", exp)
-        print(stack)
-        print(stack[exp][1])
-        print("----------------")
         if  exp not in stack or stack[exp][1] == None:
             raise Exception("Vairable does not exist")
         
