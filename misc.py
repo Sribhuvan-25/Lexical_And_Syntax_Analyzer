@@ -122,6 +122,12 @@ def tree(exp, node: BinaryNode):
             node.val = stack[exp][1]
         return 
 
+    if index_mul:
+        node.val = TList["MUL"]
+        tree(exp[0:index_mul], node.left)
+        tree(exp[index_mul+2:], node.right)
+        return 
+
     if index_plus:
         node.val = TList["ADD"]
         tree(exp[0:index_plus], node.left)
@@ -132,13 +138,6 @@ def tree(exp, node: BinaryNode):
         node.val = TList["SUB"]
         tree(exp[0:index_minus], node.left)
         tree(exp[index_minus+2:], node.right)
-
-        return 
-    
-    if index_mul:
-        node.val = TList["MUL"]
-        tree(exp[0:index_mul], node.left)
-        tree(exp[index_mul+2:], node.right)
         return 
     
     if index_div:

@@ -60,9 +60,9 @@
 
 ## Priority Order
 - ()
-- \+
-- \-
 - \*
+- \-
+- \+
 - /
 
 ## Production Rules
