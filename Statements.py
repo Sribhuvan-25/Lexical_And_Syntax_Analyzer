@@ -74,8 +74,11 @@ def declaration(st):
     statement(restStatement.strip())
 
 def loop(st):
+    print(st)
     st = st.replace("rerun ", "", 1).strip()
-
+    print("--------------")
+    print(st)
+    print("--------------")
     [boolStatement, restStatement] = insideBrackets(st, TList["OPEN"], TList["CLOSE"])
     [ifStatement, restStatement] = insideBrackets(restStatement.strip(), TList["CODEBLOCKSTART"], TList["CODEBLOCKEND"])
 
