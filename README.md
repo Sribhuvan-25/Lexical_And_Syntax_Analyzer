@@ -97,6 +97,11 @@ F -> +F             Unary Plus
 F ->( E )           Factor can be an Expression in parentheses
 F -> c              Factor can be a constant
 ```
+
+### To run
+Give the file name in the index.py to run the code.
+
+
 ## (C) Is it LL Grammar ?
 The code works on the principle of LR grammar and wouldn't have pairwise disjointness. It fillows push down or top down automata
 
