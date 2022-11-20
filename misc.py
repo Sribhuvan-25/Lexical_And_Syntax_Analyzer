@@ -2,6 +2,7 @@ import re
 from typing import Union
 from Stack import stack
 
+# Evaluates boolans equations
 def booleanEquation(equation):
     
     operators = [TList["LT"], TList["GT"], TList["GTE"], TList["LTE"], TList["EQ"], TList["NE"]]
@@ -51,7 +52,7 @@ class BinaryNode:
         self.left = None
         self.val = val
 
-
+# Helper function to identify the index of brackets.
 def indexPairBracket(st, startBracket, endBracket, startIndex):
     bracketCounter = 1
     currentIndex = startIndex + 1
@@ -66,12 +67,14 @@ def indexPairBracket(st, startBracket, endBracket, startIndex):
         currentIndex = currentIndex + 1
     return currentIndex
 
+# Helper function to identify if an expression is in parenthesis
 def inParenthesis(exp):
     if exp[0] != TList["OPEN"]:
         return False
     val = indexPairBracket(exp, TList["OPEN"], TList["CLOSE"], 0)
     return val >= len(exp)
 
+# This basically makes the parse tree to evaluate mathematical expressions
 def tree(exp, node: BinaryNode):
     
     exp = exp.strip()
@@ -157,7 +160,7 @@ def tree(exp, node: BinaryNode):
     
     
 
-
+# Solves the mathematical expression
 def solveTree(node: BinaryNode):
     if not node:
         return 0
@@ -181,7 +184,7 @@ def solveTree(node: BinaryNode):
             raise Exception("Division by Zero")
         return int(solveTree(node.left) % denom)
 
-
+# Processes the expression
 def expression(exp:str):
     exp = exp.strip()
     
@@ -190,6 +193,7 @@ def expression(exp:str):
     tree(exp, root)
     return solveTree(root)
 
+# Processing the code that inside brackets
 def insideBrackets(statement, startBracket, endBracket):
     
     bracketCounter = 1
@@ -205,6 +209,7 @@ def insideBrackets(statement, startBracket, endBracket):
     
     return [statement[1:currentIndex-1], statement[currentIndex:]]
 
+# List of all tokens
 TList = {
     'ASSIGN': "=",
     'END': "End",

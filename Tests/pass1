@@ -1,0 +1,25 @@
+Start
+
+  S varOne;
+  varOne = 1;
+
+  XL varTwo;
+  varTwo = 1 + 1 + (2 + (100 * 2)) * varOne;
+
+  cond (varOne == varTwo) {
+    cond (varOne <= varTwo) {
+      varOne = varTwo * 2;
+    }
+  }
+
+  XS varThree;
+  varThree = 0;
+
+  rerun (varThree <= 2) {
+    varThree = varThree + 4;
+
+    cond (varThree == 3) {
+      varThree = varThree * 2;
+    }
+    
+End

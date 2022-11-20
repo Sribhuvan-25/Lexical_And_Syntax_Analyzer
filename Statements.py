@@ -1,12 +1,13 @@
 from misc import *
 
+# Processes the type of statement 
 def statement(st):
     st = st.strip()
 
     if not st:
         return
     
-    regex_intialWord = re.findall("^[a-zA-Z]* ", st)
+    regex_intialWord = re.findall("^[a-zA-Z_]* ", st)
 
     if not regex_intialWord:
         raise Exception("Invalid Syntax")
@@ -28,7 +29,7 @@ def statement(st):
     else:
         raise Exception(f'{initalWord} is not defined')
 
-
+# Processes assignment statements
 def assign(st):
    
     rmatch = re.findall("([^;]+);(.*)", st.strip())
@@ -44,6 +45,7 @@ def assign(st):
     stack[variable][1] = expression(expr)
     statement(restStatement.strip())
 
+# Processes conditional statements
 def condition(st):
     st = st.replace("cond ", "", 1)
 
@@ -55,6 +57,7 @@ def condition(st):
 
     statement(restStatement)
 
+# Processes declaration statements
 def declaration(st):
     rmatch = re.split("([^;]+);(.*)", st.strip())
     
@@ -73,8 +76,8 @@ def declaration(st):
     stack[variable] = [vType, None]
     statement(restStatement.strip())
 
+# Process the loop
 def loop(st):
-    
     st = st.replace("rerun ", "", 1).strip()
     [boolStatement, restStatement] = insideBrackets(st, TList["OPEN"], TList["CLOSE"])
     [ifStatement, restStatement] = insideBrackets(restStatement.strip(), TList["CODEBLOCKSTART"], TList["CODEBLOCKEND"])

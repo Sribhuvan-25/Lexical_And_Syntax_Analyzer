@@ -1,0 +1,14 @@
+Start
+    XL var1A;
+    var1A = 5 - (2 * 5);
+
+    Xs varOne;
+    varOne = 1;
+
+    cnd ( varOne < = 1) {
+        varOne = 10;
+    }
+
+    XL varTw;
+    varTwo = varO+ 5;
+End

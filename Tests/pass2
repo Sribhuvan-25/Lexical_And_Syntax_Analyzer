@@ -1,4 +1,4 @@
-Start 
+Start
 
     XL varOne;
     varOne = 2 * 4 - 1;
@@ -11,4 +11,5 @@ Start
     cond (varTwo < varOne){
         var_a = 1;
     }
+
 End

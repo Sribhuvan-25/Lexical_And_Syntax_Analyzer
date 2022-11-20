@@ -1,0 +1,16 @@
+Start
+
+  XL varA;
+  varA = 1-5 + 2;
+
+  cond (varA > = 4 {
+    varA = 20;
+
+    cond (varA != 2) {
+      varA = varA % 2;
+
+    XL varB;
+    varB = 1 - 7 * ( 1 / 2 ;
+  }
+
+End

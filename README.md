@@ -65,6 +65,7 @@
 - \-
 - \+
 - /
+- %
 
 ## Production Rules
 
@@ -107,20 +108,51 @@ The LR table would have highlighted the ambiguous parts in red which is in the a
 ```txt
 Start
     XL var1A;
-    var1A = 5 - (2 *5);
+    var1A = 5 - (2 * 5);
 
-    cond ( varA < = 20 {
-        var1 = 10;
+    Xs varOne;
+    varOne = 1;
+
+    cnd ( varOne < = 1) {
+        varOne = 10;
     }
 
-    XL varTwo;
-    varTwo = var1A + 5;
+    XL varTw;
+    varTwo = varO+ 5;
 End
 ```
-#### Errors in the code:
-- var1A is a lexical error since this language can't have variable names containing numbers.
-- Syntax error with *5 since there should be a space between and operands and operators.
-- 
+#### Lexical Errors in the code:
+- Cnd should have been Cond.
+- var1A is not correct naming convention as it can't have numbers in it.
+- varTw should have been varTwo
+- Xs should have been XS
+- varO should have been varOne
+
+```txt
+Start
+
+  XL varA;
+  varA = 1-5 + 2;
+
+  cond (varA > = 4 {
+    varA = 20;
+
+    cond (varA != 2) {
+      varA = varA % 2;
+
+    XL varB;
+    varB = 1 - 7 * ( 1 / 2 ;
+  }
+
+End
+```
+#### Syntax errors in the code:
+- (1 / 2 :  is missing closing parentheses `)`
+- (varA > = 4 : should end with closing parentheses `)'
+- (varA > = 4 : there is no space in between the two '>=`.
+- cond statement is missing a closing parentheses `}`.
+- 1-5 shoud have space between each lexeme `1 - 5`.
+
 
 ### Working test cases
 ```txt
@@ -152,7 +184,7 @@ Start
 End
 ```
 ```txt
-Start
+Start 
 
     XL varOne;
     varOne = 2 * 4 - 1;
@@ -163,12 +195,33 @@ Start
     L var_a;
 
     cond (varTwo < varOne){
-        var_a = 1
+        var_a = 1;
     }
 End
 ```
 
 ## (H) LR(1) Grammar and parse tree
+
+### LR(1) Grammar
+![Grammar table](https://raw.githubusercontent.com/Sribhuvan-25/Lexical_And_Syntax_Analyzer/main/Images/Picture1.png)
+
+### LR(1) Parse Table
+![Grammar table](https://raw.githubusercontent.com/Sribhuvan-25/Lexical_And_Syntax_Analyzer/main/Images/ParseTable.png)
+
+### Fail 1
+![Grammar table](https://raw.githubusercontent.com/Sribhuvan-25/Lexical_And_Syntax_Analyzer/main/Images/Fail1.png)
+
+### Pass 1
+![Grammar table](https://raw.githubusercontent.com/Sribhuvan-25/Lexical_And_Syntax_Analyzer/main/Images/Pass1.png)
+
+### Fail 2
+![Grammar table](https://raw.githubusercontent.com/Sribhuvan-25/Lexical_And_Syntax_Analyzer/main/Images/Fail2.png)
+
+### Pass 2
+![Grammar table](https://raw.githubusercontent.com/Sribhuvan-25/Lexical_And_Syntax_Analyzer/main/Images/Pass2.png)
+
+
+
 
 
 
