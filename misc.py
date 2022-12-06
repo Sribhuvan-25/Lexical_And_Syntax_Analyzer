@@ -200,6 +200,8 @@ def insideBrackets(statement, startBracket, endBracket):
     currentIndex = 1
 
     while bracketCounter > 0 :
+        if currentIndex >= len(statement):
+            raise Exception("Invalid Bracket pair")
         if statement[currentIndex] == startBracket:
             bracketCounter += 1
         elif statement[currentIndex] == endBracket:

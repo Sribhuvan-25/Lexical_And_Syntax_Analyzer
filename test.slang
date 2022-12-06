@@ -8,7 +8,7 @@ Start
 
     L var_a;
 
-    cond (varTwo < varOne){
+    cond (varTwo < varOne) {
         var_a = 1;
     }
 End

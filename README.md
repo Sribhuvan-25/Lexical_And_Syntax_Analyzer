@@ -35,12 +35,12 @@
 | NE         | !=        | !=    |
 
 ## Integer Types
-| Token Code | Size    |
-| ---------- | ------- |
-| XS         | 1 byte  |
-| S          | 2 bytes |
-| L          | 4 bytes |
-| XL         | 8 bytes |
+| Token Code | Size    | Literal |
+| ---------- | ------- | ------- |
+| XS         | 1 byte  |  1i     |
+| S          | 2 bytes |  2i     |
+| L          | 4 bytes |  3i     |
+| XL         | 8 bytes |  4i     |
 
 
 ## Keywords
@@ -94,7 +94,7 @@ T -> T / F          Term / Factor
 T -> F              Some Terms can be Factors
 F -> -F             Unary Minus
 F -> +F             Unary Plus
-F ->( E )           Factor can be an Expression in parentheses
+F -> ( E )           Factor can be an Expression in parentheses
 F -> c              Factor can be a constant
 ```
 
@@ -103,7 +103,14 @@ Give the file name in the index.py to run the code.
 
 
 ## (C) Is it LL Grammar ?
-The code works on the principle of LR grammar and wouldn't have pairwise disjointness. It fillows push down or top down automata
+- This code has both LR and LL grammar.
+- LL grammar is use to identify the type of statement.
+- In this code everything between `Start` and `End` is considered to be one code section.
+- A statement starting with a dataype is identified as a decleration statement.
+- A statement starting with a variable is identified as an assignment statement.
+- A statement starting with `rerun` is identified as a loop statement
+- A statement starting with `cond` is indetified as a condition statement
+- To solve the an expression, this code utilizss LR grammar where an expression tree is constructed.
 
 ## (D) Is the Grammar Ambiguous ?
 The LR table would have highlighted the ambiguous parts in red which is in the action block. The following image shows that there isn't any ambiguity.
