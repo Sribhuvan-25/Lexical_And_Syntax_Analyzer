@@ -104,6 +104,7 @@ Give the file name in the index.py to run the code.
 
 ## (C) Is it LL Grammar ?
 - This code has both LR and LL grammar.
+- It is pairwise disjoint.
 - LL grammar is use to identify the type of statement.
 - In this code everything between `Start` and `End` is considered to be one code section.
 - A statement starting with a dataype is identified as a decleration statement.
