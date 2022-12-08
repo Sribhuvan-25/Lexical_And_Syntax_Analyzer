@@ -217,6 +217,7 @@ End
 
 ### LR(1) Grammar
 ![Grammar table](https://raw.githubusercontent.com/Sribhuvan-25/Lexical_And_Syntax_Analyzer/main/Images/Picture1.png)
+![Grammar table](https://raw.githubusercontent.com/Sribhuvan-25/Lexical_And_Syntax_Analyzer/main/Images/Image.png)
 
 ### LR(1) Parse Table
 ![Grammar table](https://raw.githubusercontent.com/Sribhuvan-25/Lexical_And_Syntax_Analyzer/main/Images/ParseTable.png)
