@@ -39,8 +39,8 @@
 | ---------- | ------- | ------- |
 | XS         | 1 byte  |  1i     |
 | S          | 2 bytes |  2i     |
-| L          | 4 bytes |  3i     |
-| XL         | 8 bytes |  4i     |
+| L          | 4 bytes |  4i     |
+| XL         | 8 bytes |  8i     |
 
 
 ## Keywords
